@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         val rollButton: Button = findViewById(R.id.roll_button)
         val countUp: Button = findViewById(R.id.count_up)
+        val reset: Button = findViewById(R.id.reset_button)
 
         rollButton.setOnClickListener {
             rollDice()
@@ -24,6 +25,16 @@ class MainActivity : AppCompatActivity() {
             countUp()
         }
 
+        reset.setOnClickListener {
+            reset()
+        }
+
+    }
+
+    private fun rollDice() {
+        val randomInt = (1..6).random()
+        Toast.makeText(this, "Button Clicked", Toast.LENGTH_SHORT).show()
+        result_text.text = randomInt.toString()
     }
 
     private fun countUp() {
@@ -42,9 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun rollDice() {
-        val randomInt = (1..6).random()
-        Toast.makeText(this, "Button Clicked", Toast.LENGTH_SHORT).show()
-        result_text.text = randomInt.toString()
+    fun reset() {
+        result_text.text = 0.toString()
     }
 }

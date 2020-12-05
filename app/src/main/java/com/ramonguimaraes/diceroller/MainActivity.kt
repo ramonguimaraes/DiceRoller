@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.random.Random
+import java.lang.NumberFormatException
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,11 +14,31 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val rollButton: Button = findViewById(R.id.roll_button)
-
+        val countUp: Button = findViewById(R.id.count_up)
 
         rollButton.setOnClickListener {
             rollDice()
         }
+
+        countUp.setOnClickListener {
+            countUp()
+        }
+
+    }
+
+    private fun countUp() {
+        val res = result_text.text.toString()
+        try {
+            val inteiro: Int = res.toInt()
+
+            if (inteiro < 6) {
+                result_text.text = (inteiro + 1).toString()
+            }
+
+        } catch (e: NumberFormatException) {
+            result_text.text = "1"
+        }
+
 
     }
 

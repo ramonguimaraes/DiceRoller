@@ -1,48 +1,40 @@
 package com.ramonguimaraes.diceroller
 
-import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.NumberFormatException
-
 
 class MainActivity : AppCompatActivity() {
 
-    var diceFace: Int = 1
-    lateinit var imageView: ImageView
+
+    lateinit var dice1: ImageView
+    lateinit var dice2: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        imageView = findViewById(R.id.dice_image)
+        dice1 = findViewById(R.id.dice_image1)
+        dice2 = findViewById(R.id.dice_image2)
 
         val rollButton: Button = findViewById(R.id.roll_button)
-        val countUp: Button = findViewById(R.id.count_up)
-        val reset: Button = findViewById(R.id.reset_button)
+
 
         rollButton.setOnClickListener {
-            rollDice()
+            dice1.setImageResource(setDiceImage())
+            dice2.setImageResource(setDiceImage())
         }
 
-        countUp.setOnClickListener {
-            countUp()
-        }
-
-        reset.setOnClickListener {
-            reset()
-        }
 
     }
 
-    private fun setDiceImage() {
+    private fun setDiceImage(): Int {
 
-        val drawableResource = when (diceFace) {
+        val randomInt = (1..6).random()
 
+        return when (randomInt) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
@@ -52,25 +44,6 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        imageView.setImageResource(drawableResource)
-
     }
 
-    private fun rollDice() {
-        diceFace = (1..6).random()
-        Toast.makeText(this, "Button Clicked", Toast.LENGTH_SHORT).show()
-        setDiceImage()
-    }
-
-    private fun countUp() {
-        if (diceFace < 6) {
-            diceFace += 1
-            setDiceImage()
-        }
-    }
-
-    fun reset() {
-        diceFace = 1
-        setDiceImage()
-    }
 }
